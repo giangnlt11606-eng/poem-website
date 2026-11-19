@@ -1,0 +1,191 @@
+:root { --pink: #ffd0d5; --ease: cubic-bezier(.22,.9,.3,1.2); }
+* { box-sizing: border-box; margin: 0; }
+html, body { height: 100%; background: var(--pink); overflow: hidden; font-family: "Georgia", serif; }
+
+/* 16:9 stage, scaled to fit any window */
+.stage {
+  position: absolute; inset: 0; margin: auto;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  overflow: hidden; background: var(--pink);
+  container-type: size; /* lets text scale with the stage via cqw units */
+}
+
+/* Slide 1 title: top-right corner, in the empty grid area above the second character */
+.title {
+  position: absolute; top: 5%; right: 4%;
+  font-size: 5.2cqw; font-weight: 700; font-style: italic; line-height: 1;
+  letter-spacing: .01em; color: #c4344f; text-align: right;
+  /* white sticker-style outline + soft shadow, echoing the cut-out character */
+  text-shadow:
+    -.06em -.06em 0 #fff, .06em -.06em 0 #fff, -.06em .06em 0 #fff, .06em .06em 0 #fff,
+    0 .06em 0 #fff, 0 -.06em 0 #fff, .06em 0 0 #fff, -.06em 0 0 #fff,
+    .1em .14em 0 #8e1f33;
+  user-select: none; pointer-events: none;
+}
+
+/* Slides */
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; visibility: hidden; transform: scale(1.04);
+  transition: opacity .7s ease, transform .7s ease, visibility 0s .7s;
+}
+.slide.is-active { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.slide.is-leaving { opacity: 0; transform: scale(1.12); }
+.slide__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; }
+
+/* Animated sparkles on slide 1. Positions are pixel boxes on the 1920x1080 scene, as percentages.
+   Patches paint over the static sparkles in the image (patch 2 redraws the grid line at y=448-450). */
+.sparkles { position: absolute; inset: 0; pointer-events: none; }
+.sparkle-patch { position: absolute; background: var(--pink); }
+.sparkle-patch--1 { left: 11.406%; top: 43.889%; width: 1.875%; height: 4.722%; }   /* 219,474 36x51 */
+.sparkle-patch--2 {                                                                    /* 838,422 44x57 */
+  left: 43.646%; top: 39.074%; width: 2.292%; height: 5.278%;
+  background: linear-gradient(var(--pink) 45.6%, #fff 45.6% 50.9%, var(--pink) 50.9%);
+}
+.sparkle {
+  position: absolute; fill: #f8b0b0; overflow: visible;
+  animation: twinkle 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 0 rgba(255,255,255,0));
+}
+.sparkle--1 { left: 11.615%; top: 44.259%; width: 1.458%; height: 3.981%; }           /* 223,478 28x43 */
+.sparkle--2 { left: 43.854%; top: 39.444%; width: 1.875%; height: 4.537%;             /* 842,426 36x49 */
+  animation-duration: 3.4s; animation-delay: -1.3s; }
+@keyframes twinkle {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  25%      { transform: translateY(-8%) scale(1.18) rotate(8deg); opacity: 1;
+             filter: drop-shadow(0 0 .35em rgba(255,255,255,.9)); }
+  50%      { transform: translateY(0) scale(.82) rotate(0deg); opacity: .75; }
+  75%      { transform: translateY(6%) scale(1.06) rotate(-6deg); opacity: .95; }
+}
+
+/* Heart (position taken from the Figma layout: 1340,580 on a 1920x1080 canvas) */
+.heart {
+  position: absolute; left: 69.79%; top: 53.7%; width: 6.875%;
+  aspect-ratio: 132 / 131;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  transform-origin: 50% 50%;
+  transition: transform .35s var(--ease), filter .35s ease;
+  filter: drop-shadow(0 0 0 rgba(255,60,90,0));
+}
+.heart img { width: 100%; height: 100%; display: block; pointer-events: none; }
+.heart:hover, .heart:focus-visible {
+  transform: scale(1.4);
+  filter: drop-shadow(0 6px 14px rgba(255,60,90,.45));
+}
+.heart:active { transform: scale(1.25); }
+.heart:focus-visible { outline: none; }
+
+/* ---------- Slide 2: record sleeves + spinning record ---------- */
+/* .fig places an element using pixel values from the 1920x1080 Figma frame ("Bg2 1"),
+   converted to percentages so it scales with the stage. */
+.fig {
+  position: absolute;
+  left: calc(var(--x) / 1920 * 100%); top: calc(var(--y) / 1080 * 100%);
+  width: calc(var(--w) / 1920 * 100%); height: calc(var(--h) / 1080 * 100%);
+  user-select: none;
+}
+
+/* Section 1: sleeves. Each is a 799x799 Figma layer rotated about its centre. Figma reports a rotated
+   layer by its rotated top-left corner, so x/y here are the centre minus 399.5. */
+.sleeves { position: absolute; inset: 0; }
+.sleeve {
+  --w: 799; --h: 799; --r: 0deg;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  transform: rotate(var(--r));
+  transition: transform .8s cubic-bezier(.6,.05,.3,1), opacity .6s ease .15s, filter .3s ease;
+  filter: drop-shadow(0 .8cqh 1.4cqh rgba(90, 40, 60, .18));
+}
+.sleeve img { width: 100%; height: 100%; display: block; pointer-events: none; }
+.sleeve:not(.is-top) { pointer-events: none; }
+.sleeve.is-top:hover, .sleeve.is-top:focus-visible {
+  transform: translate(-1.5%, -2.5%) rotate(var(--r)) scale(1.02);
+  filter: drop-shadow(0 2cqh 2.4cqh rgba(90, 40, 60, .28));
+  outline: none;
+}
+.sleeve--blue   { z-index: 3; --x: 94.4;  --y: 219.7; --r: 14.18deg; }   /* Figma "disc3" */
+.sleeve--purple { z-index: 2; --x: 25;    --y: 120;   }                  /* Figma "disc2" */
+.sleeve--pink   { z-index: 1; --x: 46.5;  --y: 200.1; --r: -11.66deg; }  /* Figma "disc1" */
+/* Slide out to the lower left, the direction the Figma frames move them */
+.sleeve--blue.is-out   { transform: translate(-150%, 30%) rotate(-8deg); }
+.sleeve--purple.is-out { transform: translate(-130%, 45%) rotate(-14deg); }
+.sleeve--pink.is-out   { transform: translate(-140%, 25%) rotate(-28deg); }
+.sleeve.is-out { opacity: 0; pointer-events: none; }
+
+/* Section 2: record player */
+.player { position: absolute; inset: 0; pointer-events: none; }
+.platter { --x: 975.5;  --y: 167.5; --w: 907;   --h: 859.5; }
+.record  { --x: 1002.2; --y: 191.4; --w: 835;   --h: 835;
+           animation: spin 6s linear infinite; }
+.tonearm { --x: 1717.5; --y: 246;   --w: 73;    --h: 252; }
+.dots    { --x: 1600.1; --y: 195.9; --w: 248.3; --h: 234; }   /* Figma "discwaves3", under the record */
+.pivot   { --x: 1706.6; --y: 160.9; --w: 133.9; --h: 173; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Notes: positions are the spots the notes take across the Figma frames. They take turns fading in and out. */
+.note { opacity: 0; animation: note-fade 6s ease-in-out infinite; }
+.note--1 { --x: 888.5;  --y: 104.4; --w: 50.8; --h: 95.3;  animation-delay: 0s; }
+.note--2 { --x: 1613.6; --y: 26.4;  --w: 51.7; --h: 105.8; animation-delay: -1.2s; }
+.note--3 { --x: 932.6;  --y: 844;   --w: 72.8; --h: 96.5;  animation-delay: -2.4s; }
+.note--4 { --x: 1757.6; --y: 965;   --w: 72.8; --h: 96.5;  animation-delay: -3.6s; }
+.note--5 { --x: 1839.6; --y: 961.4; --w: 51.7; --h: 105.8; animation-delay: -4.8s; }
+@keyframes note-fade {
+  0%   { opacity: 0; transform: translateY(12%) rotate(-6deg); }
+  20%  { opacity: 1; }
+  55%  { opacity: 1; transform: translateY(-8%) rotate(4deg); }
+  80%, 100% { opacity: 0; transform: translateY(-20%) rotate(8deg); }
+}
+
+/* ---------- Slide 3: dancers, confetti, skull "slide to start over" ---------- */
+/* Positions are pixels in the 1920x1080 Figma frame "Bg3", via .fig */
+
+/* Confetti: one element per paper piece, built by js/main.js from js/confetti-pieces.js */
+.confetti { position: absolute; inset: 0; pointer-events: none; }
+.confetti span {
+  position: absolute; background: url(../images/slide3/confetti.png) no-repeat;
+  will-change: transform;
+}
+
+/* Characters bob gently. They only move down from the Figma position, so their cropped
+   bottom edges never lift into view. */
+.dancer img { width: 100%; height: 100%; display: block; user-select: none; }
+.dancer { animation: bob 3.6s ease-in-out infinite alternate; }
+.dancer--left  { --x: 0;    --y: 41; --w: 804; --h: 1041; }
+.dancer--right { --x: 1153; --y: 96; --w: 763; --h: 984; animation-duration: 4.3s; animation-delay: -1.5s; }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(1.4%); } }
+
+/* Skulls: drag the left one into the right one */
+.skull--right { --x: 974.95; --y: 806.47; --w: 123.5; --h: 138; z-index: 1; }
+.skull--left  {
+  --x: 766.05; --y: 774; --w: 145.2; --h: 182; z-index: 2;
+  padding: 0; border: 0; background: none; cursor: grab; touch-action: none;
+  animation: nudge 2.4s ease-in-out 1.2s infinite;
+}
+.skull--left img { width: 100%; height: 100%; display: block; pointer-events: none; }
+.skull--left:focus-visible { outline: .4cqh dashed #fff; outline-offset: .6cqh; border-radius: 1cqh; }
+.skull--left.is-dragging { cursor: grabbing; animation: none; }
+.skull--left.is-returning { animation: none; transition: transform .45s cubic-bezier(.3,1.4,.5,1); }
+.skull--left.is-hit { animation: none; }
+.skull--right.is-hit { animation: hit .5s ease-out; }
+/* Idle hint: a small push towards the other skull */
+@keyframes nudge {
+  0%, 60%, 100% { transform: translateX(0) rotate(0); }
+  70% { transform: translateX(12%) rotate(6deg); }
+  80% { transform: translateX(0) rotate(0); }
+  88% { transform: translateX(6%) rotate(3deg); }
+}
+@keyframes hit {
+  0% { transform: none; }
+  30% { transform: translateX(14%) rotate(14deg) scale(1.08); }
+  60% { transform: translateX(-4%) rotate(-6deg); }
+  100% { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dancer, .skull--left { animation: none; }
+  .slide, .heart { transition-duration: .01s; }
+  .sparkle { animation: none; }
+  .record { animation-duration: 20s; }
+  .note { animation: none; opacity: 1; }
+  .sleeve { transition-duration: .01s; }
+}
