@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Poem &amp; Illustrations</title>
+  <link rel="icon" href="images/heart.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="stage" id="stage">
+
+    <!-- Slide 1: landing -->
+    <section class="slide is-active" id="slide-1" aria-label="Start">
+      <img class="slide__bg" src="images/slide1-scene.png" alt="Two illustrated characters on a pink grid background" draggable="false">
+      <!-- The two pink sparkles are baked into the scene; patches hide them and animated copies sit on top -->
+      <div class="sparkles" aria-hidden="true">
+        <span class="sparkle-patch sparkle-patch--1"></span>
+        <span class="sparkle-patch sparkle-patch--2"></span>
+        <svg class="sparkle sparkle--1" viewBox="0 0 100 140"><path d="M50 0Q56 62 100 70Q56 78 50 140Q44 78 0 70Q44 62 50 0Z"/></svg>
+        <svg class="sparkle sparkle--2" viewBox="0 0 100 140"><path d="M50 0Q56 62 100 70Q56 78 50 140Q44 78 0 70Q44 62 50 0Z"/></svg>
+      </div>
+      <h1 class="title">Hidden Harmony</h1>
+      <button class="heart" id="heart" type="button" aria-label="Open the poem">
+        <img src="images/heart.png" alt="" draggable="false">
+      </button>
+    </section>
+
+    <!-- Slide 2: record sleeves (left) + spinning record (right). Layers from the Figma file, "Bg2" frames. -->
+    <section class="slide slide--records" id="slide-2" aria-label="Records">
+      <img class="slide__bg" src="images/slide2/bg.png" alt="" draggable="false">
+
+      <!-- Section 1: stack of sleeves. The first in the markup is on top. -->
+      <div class="sleeves" id="sleeves">
+        <button class="fig sleeve sleeve--blue" type="button" aria-label="Record sleeve 1 of 3, show the next one">
+          <img src="images/slide2/sleeve-blue.png" alt="" draggable="false">
+        </button>
+        <button class="fig sleeve sleeve--purple" type="button" aria-label="Record sleeve 2 of 3, show the next one">
+          <img src="images/slide2/sleeve-purple.png" alt="" draggable="false">
+        </button>
+        <button class="fig sleeve sleeve--pink" type="button" aria-label="Record sleeve 3 of 3, continue to the next slide">
+          <img src="images/slide2/sleeve-pink.png" alt="" draggable="false">
+        </button>
+      </div>
+
+      <!-- Section 2: spinning record (visual only, no audio) with fading notes -->
+      <div class="player" aria-hidden="true">
+        <img class="fig platter" src="images/slide2/platter.png" alt="" draggable="false">
+        <img class="fig dots"    src="images/slide2/dots.png"    alt="" draggable="false">
+        <img class="fig record"  src="images/slide2/record.png"  alt="" draggable="false">
+        <img class="fig tonearm" src="images/slide2/tonearm.png" alt="" draggable="false">
+        <img class="fig pivot"   src="images/slide2/pivot.png"   alt="" draggable="false">
+        <img class="fig note note--1" src="images/slide2/note-a.png" alt="" draggable="false">
+        <img class="fig note note--2" src="images/slide2/note-b.png" alt="" draggable="false">
+        <img class="fig note note--3" src="images/slide2/note-c.png" alt="" draggable="false">
+        <img class="fig note note--4" src="images/slide2/note-c.png" alt="" draggable="false">
+        <img class="fig note note--5" src="images/slide2/note-b.png" alt="" draggable="false">
+      </div>
+    </section>
+
+    <!-- Slide 3: dancing characters, falling confetti, drag the skull to start over. Layers from the Figma "Bg3" frame. -->
+    <section class="slide slide--dance" id="slide-3" aria-label="Finale">
+      <img class="slide__bg" src="images/slide3/bg.png" alt="" draggable="false">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <img class="slide__bg" src="images/slide3/fade.png" alt="" draggable="false">
+      <div class="fig dancer dancer--right"><img src="images/slide3/char-right.png" alt="A man in a long tan coat dancing" draggable="false"></div>
+      <div class="fig dancer dancer--left"><img src="images/slide3/char-left.png" alt="A blond man in a dark coat dancing" draggable="false"></div>
+      <img class="fig skull skull--right" id="skull-target" src="images/slide3/skull-right.png" alt="" draggable="false">
+      <button class="fig skull skull--left" id="skull-handle" type="button" aria-label="Drag this skull into the other one to start over">
+        <img src="images/slide3/skull-left.png" alt="" draggable="false">
+      </button>
+    </section>
+
+  </main>
+  <script src="js/confetti-pieces.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
