@@ -15,7 +15,7 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
 .title {
   position: absolute; top: 5%; right: 4%;
   font-family: "Bungee", "Arial Black", Impact, sans-serif;
-  font-size: 3.9cqw; font-weight: 400; text-transform: uppercase; line-height: 1;
+  font-size: 4.6cqw; font-weight: 400; text-transform: uppercase; line-height: 1;
   letter-spacing: .05em; color: #ffc4c4; text-align: right;
   /* chunky pink 3D block lettering with a thin white outline */
   -webkit-text-stroke: .035em #fff; paint-order: stroke fill;
@@ -23,6 +23,13 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
     .04em .04em 0 #ff9ea4, .08em .08em 0 #ff9ea4, .12em .12em 0 #ff9ea4,
     .16em .16em 0 #ff9ea4, .2em .2em 0 #ff9ea4;
   user-select: none; pointer-events: none;
+}
+
+/* Student ID under the title: same font, much smaller, plain white, right-aligned at the bottom */
+.title__id {
+  display: block; margin-top: .3em; padding-right: .2em;
+  font-size: .26em; letter-spacing: .12em; color: #fff;
+  -webkit-text-stroke: 0; text-shadow: none;
 }
 
 /* Slides */
