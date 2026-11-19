@@ -14,13 +14,14 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
 /* Slide 1 title: top-right corner, in the empty grid area above the second character */
 .title {
   position: absolute; top: 5%; right: 4%;
-  font-size: 5.2cqw; font-weight: 700; font-style: italic; line-height: 1;
-  letter-spacing: .01em; color: #c4344f; text-align: right;
-  /* white sticker-style outline + soft shadow, echoing the cut-out character */
+  font-family: "Bungee", "Arial Black", Impact, sans-serif;
+  font-size: 3.9cqw; font-weight: 400; text-transform: uppercase; line-height: 1;
+  letter-spacing: .05em; color: #ffc4c4; text-align: right;
+  /* chunky pink 3D block lettering with a thin white outline */
+  -webkit-text-stroke: .035em #fff; paint-order: stroke fill;
   text-shadow:
-    -.06em -.06em 0 #fff, .06em -.06em 0 #fff, -.06em .06em 0 #fff, .06em .06em 0 #fff,
-    0 .06em 0 #fff, 0 -.06em 0 #fff, .06em 0 0 #fff, -.06em 0 0 #fff,
-    .1em .14em 0 #8e1f33;
+    .04em .04em 0 #ff9ea4, .08em .08em 0 #ff9ea4, .12em .12em 0 #ff9ea4,
+    .16em .16em 0 #ff9ea4, .2em .2em 0 #ff9ea4;
   user-select: none; pointer-events: none;
 }
 
