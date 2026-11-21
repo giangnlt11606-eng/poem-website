@@ -159,6 +159,20 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
 /* ---------- Slide 3: dancers, confetti, skull "slide to start over" ---------- */
 /* Positions are pixels in the 1920x1080 Figma frame "Bg3", via .fig */
 
+/* Background music: off-screen player + small mute button in the bottom-right corner */
+.music-player { position: fixed; left: -300px; top: 0; width: 200px; height: 200px; overflow: hidden; pointer-events: none; }
+.music-toggle {
+  position: fixed; right: 14px; bottom: 14px; z-index: 50;
+  width: 40px; height: 40px; padding: 9px; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255, 255, 255, .75); color: #c4344f;
+  box-shadow: 0 2px 8px rgba(90, 40, 60, .25); transition: transform .2s ease, background .2s ease;
+}
+.music-toggle[hidden] { display: none; }
+.music-toggle:hover { transform: scale(1.1); background: #fff; }
+.music-toggle svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+.music-toggle .music-toggle__off, .music-toggle.is-muted .music-toggle__on { display: none; }
+.music-toggle.is-muted .music-toggle__off { display: block; }
+
 /* Hidden message in the gap between the two dancers. Faint (a slightly lighter shade of the
    crimson background) until hovered, then each line glows up in soft pink. */
 .whisper {
