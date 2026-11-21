@@ -163,11 +163,11 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
    crimson background) until hovered, then each line glows up in soft pink. */
 .whisper {
   position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
-  width: 21cqw; text-align: center;
-  font-family: "Noto Serif", Georgia, serif; font-size: 1.3cqw; line-height: 1.45;
+  width: 25cqw; text-align: center;
+  font-family: "Noto Serif", Georgia, serif; font-size: 1.65cqw; line-height: 1.4;
 }
 .whisper__line {
-  margin: 0 0 1.6em; padding: .15em 0;
+  margin: 0 0 1.1em; padding: .15em 0;
   color: rgba(255, 190, 205, .2);
   transition: color .6s ease, text-shadow .6s ease, transform .6s ease;
   cursor: default;
