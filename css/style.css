@@ -105,6 +105,18 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
   filter: drop-shadow(0 .8cqh 1.4cqh rgba(90, 40, 60, .18));
 }
 .sleeve img { width: 100%; height: 100%; display: block; pointer-events: none; }
+/* Poem text on the coloured panel of each sleeve (moves, tilts and slides out with the sleeve) */
+.sleeve__text {
+  position: absolute; left: 6.3%; top: 18%; width: 56%;
+  font-family: "Noto Serif", Georgia, serif; font-size: 1.62cqw; line-height: 1.3;
+  text-align: left; color: var(--ink, #fff); pointer-events: none;
+}
+.st { display: block; margin-bottom: 1.3em; }
+.st--top { width: 54%; }   /* narrow where the panel is narrow (upper part) */
+.st--low { width: 90%; }   /* wider where the panel bulges out (lower part) */
+.sleeve--blue   { --ink: #dcecf5; }
+.sleeve--purple { --ink: #e8dcf2; }
+.sleeve--pink   { --ink: #fde0f0; }
 .sleeve:not(.is-top) { pointer-events: none; }
 .sleeve.is-top:hover, .sleeve.is-top:focus-visible {
   transform: translate(-1.5%, -2.5%) rotate(var(--r)) scale(1.02);
@@ -146,6 +158,25 @@ html, body { height: 100%; background: var(--pink); overflow: hidden; font-famil
 
 /* ---------- Slide 3: dancers, confetti, skull "slide to start over" ---------- */
 /* Positions are pixels in the 1920x1080 Figma frame "Bg3", via .fig */
+
+/* Hidden message in the gap between the two dancers. Faint (a slightly lighter shade of the
+   crimson background) until hovered, then each line glows up in soft pink. */
+.whisper {
+  position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+  width: 21cqw; text-align: center;
+  font-family: "Noto Serif", Georgia, serif; font-size: 1.3cqw; line-height: 1.45;
+}
+.whisper__line {
+  margin: 0 0 1.6em; padding: .15em 0;
+  color: rgba(255, 190, 205, .2);
+  transition: color .6s ease, text-shadow .6s ease, transform .6s ease;
+  cursor: default;
+}
+.whisper__line:last-child { margin-bottom: 0; }
+.whisper__line:hover {
+  color: #ffe6ec; transform: scale(1.04);
+  text-shadow: 0 0 1.2cqw rgba(255, 220, 230, .55);
+}
 
 /* Confetti: one element per paper piece, built by js/main.js from js/confetti-pieces.js */
 .confetti { position: absolute; inset: 0; pointer-events: none; }

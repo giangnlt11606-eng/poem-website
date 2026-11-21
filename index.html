@@ -7,7 +7,7 @@
   <link rel="icon" href="images/heart.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Noto+Serif&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -37,12 +37,30 @@
       <div class="sleeves" id="sleeves">
         <button class="fig sleeve sleeve--blue" type="button" aria-label="Record sleeve 1 of 3, show the next one">
           <img src="images/slide2/sleeve-blue.png" alt="" draggable="false">
+          <span class="sleeve__text">
+            <span class="st st--top">In the late-night studio under soft golden light,</span>
+            <span class="st st--top">I sits by the keys, lost in deep thought.</span>
+            <span class="st st--low">Each melody rises from the depths of my heart,</span>
+            <span class="st st--low">Sent to you, my inspired extraordinary muse.</span>
+          </span>
         </button>
         <button class="fig sleeve sleeve--purple" type="button" aria-label="Record sleeve 2 of 3, show the next one">
           <img src="images/slide2/sleeve-purple.png" alt="" draggable="false">
+          <span class="sleeve__text">
+            <span class="st st--top">Beneath the dazzling glow of the stage lights,</span>
+            <span class="st st--top">Jamie, you moves gracefully like drifting clouds.</span>
+            <span class="st st--low">Every dance step blends into each beat,</span>
+            <span class="st st--low">Making my heart flutter beyond words.</span>
+          </span>
         </button>
         <button class="fig sleeve sleeve--pink" type="button" aria-label="Record sleeve 3 of 3, continue to the next slide">
           <img src="images/slide2/sleeve-pink.png" alt="" draggable="false">
+          <span class="sleeve__text">
+            <span class="st st--top">I never got to tell you how much i like you,</span>
+            <span class="st st--top">I hide my feelings inside a love song.</span>
+            <span class="st st--low">Every low and high note carries the shadow</span>
+            <span class="st st--low">Of you alone, my cherished bandmate.</span>
+          </span>
         </button>
       </div>
 
@@ -66,6 +84,14 @@
       <img class="slide__bg" src="images/slide3/bg.png" alt="" draggable="false">
       <div class="confetti" id="confetti" aria-hidden="true"></div>
       <img class="slide__bg" src="images/slide3/fade.png" alt="" draggable="false">
+      <!-- Hidden message between the dancers: faint until hovered -->
+      <div class="whisper">
+        <p class="whisper__line">May you would find a warm blanket in this cold world,</p>
+        <p class="whisper__line">If you can't find any, I will find it for you.</p>
+        <p class="whisper__line">These feelings go beyond mere soulmates,</p>
+        <p class="whisper__line">Like music and dance forever in harmony.</p>
+        <p class="whisper__line">I love you, Jamie.</p>
+      </div>
       <div class="fig dancer dancer--right"><img src="images/slide3/char-right.png" alt="A man in a long tan coat dancing" draggable="false"></div>
       <div class="fig dancer dancer--left"><img src="images/slide3/char-left.png" alt="A blond man in a dark coat dancing" draggable="false"></div>
       <img class="fig skull skull--right" id="skull-target" src="images/slide3/skull-right.png" alt="" draggable="false">
